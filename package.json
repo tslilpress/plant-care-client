@@ -1,6 +1,6 @@
 {
   "name": "plant-care-client",
-  "homepage": "https://<USERNAME>.github.io/<REPO NAME>",
+  "homepage": "https://github.com/tslilpress/plant-care-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
