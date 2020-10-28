@@ -8,7 +8,7 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
-import CreateModal from '../Modals/CreateModal'
+import MyPlants from '../Modals/MyPlants'
 import CreatePlant from '../CreatePlant/CreatePlant'
 
 class App extends Component {
@@ -65,7 +65,7 @@ class App extends Component {
             </div>
           )}/>
           <AuthenticatedRoute user={user} exact path='/' render={() => (
-            <CreateModal msgAlert={this.msgAlert} user={user} />
+            <MyPlants msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

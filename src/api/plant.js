@@ -1,13 +1,18 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const createPlant = (plant) => {
-  return axios({
-    method: 'POST',
-    url: apiUrl + '/plant',
-    data: plant
-  })
-}
+// export const createPlant = (plant) => {
+//   return axios({
+//     method: 'POST',
+//     url: apiUrl + '/plants',
+//     headers: {
+//       'Authorization': `Token token=${this.user.token}`
+//     },
+//     data: {
+//       plant: plant
+//     }
+//   })
+// }
 
 export const showPlant = (user) => {
   return axios({

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-
-import { createPlant } from '../../api/plant'
+import apiUrl from '../../apiConfig'
+import axios from 'axios'
+// import { createPlant } from '../../api/plant'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
@@ -12,41 +13,63 @@ class CreatePlant extends Component {
     super(props)
 
     this.state = {
-      plantName: '',
-      plantType: '',
-      lastWatered: '',
-      lastFertilized: '',
-      wateringFrequency: '',
-      fertilizingFrequency: '',
-      nextWatering: '',
-      nextFertilizing: '',
-      note: '',
+      plant: {
+        plantName: '',
+        plantType: '',
+        lastWatered: '',
+        lastFertilized: '',
+        wateringFrequency: '',
+        fertilizingFrequency: '',
+        nextWatering: '',
+        nextFertilizing: '',
+        note: ''
+      },
+      createdPlantId: '',
       timeToWater: false,
       timeTofertilize: false
     }
   }
 
-  handleChange = event => this.setState({
-    [event.target.name]: event.target.value
-  })
+  handleChange = (event) => {
+    // user input value
+    const userInput = event.target.value
+    // name of input by user
+    const plantKey = event.target.name
+    // make a copy of the state
+    const plantCopy = Object.assign({}, this.state.plant)
+    // updating the key in our copy with what the user typed
+    plantCopy[plantKey] = userInput
+    // updating the state with our new copy
+    this.setState({ plant: plantCopy })
+  }
 
-  onCreate = event => {
+  handleCreate = event => {
     event.preventDefault()
-
     const { msgAlert, history } = this.props
-
-    createPlant(this.state)
+    const plant = this.state.plant
+    console.log('before create', plant)
+    axios({
+      url: apiUrl + '/plants',
+      method: 'POST',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      },
+      data: {
+        plant: plant
+      }
+    })
+    // console.log('data', this.data)
+      .then((response) => this.setState({ createdPlantId: response.data.plant._id }))
       .then(() => msgAlert({
-        heading: 'Sign Up Success',
-        message: messages.signUpSuccess,
+        heading: 'Plant Added',
+        message: messages.plantCreatedSuccess,
         variant: 'success'
       }))
       .then(() => history.push('/'))
       .catch(error => {
-        this.setState({ email: '', password: '', passwordConfirmation: '' })
         msgAlert({
-          heading: 'Sign Up Failed with error: ' + error.message,
-          message: messages.signUpFailure,
+          heading: 'Plant Create Failure: ' + error.message,
+          message: messages.plantCreatedFailure,
           variant: 'danger'
         })
       })
@@ -60,7 +83,7 @@ class CreatePlant extends Component {
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           <h3>Add New Plant</h3>
-          <Form onSubmit={this.onCreate}>
+          <Form onSubmit={this.handleCreate}>
             <Form.Group controlId="plantName">
               <Form.Label>Plant Name</Form.Label>
               <Form.Control
@@ -68,12 +91,12 @@ class CreatePlant extends Component {
                 type="text"
                 name="plantName"
                 value={plantName}
-                placeholder="Your plants nickname"
+                placeholder="Your plants name"
                 onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group controlId="plantType">
-              <Form.Label>Plant Type</Form.Label>
+              <Form.Label>Plant Type (optional)</Form.Label>
               <Form.Control
                 required
                 name="plantType"
