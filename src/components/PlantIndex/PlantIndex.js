@@ -49,7 +49,7 @@ class PlantIndex extends Component {
             <h1>My Plants</h1>
             {this.state.plants.map(plant => {
               console.log('after map', plant.plantName)
-              return <h3 key={plant._id}><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h3>
+              return <h3 key={plant._id}><Link onClick={this.handleDateFormat} to={`/plants/${plant._id}`}>{plant.plantName}</Link></h3>
             })}
           </div>
         </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { withRouter } from 'react-router-dom'
+import moment from 'moment'
 
 class PlantShow extends Component {
   constructor (props) {
@@ -36,15 +37,27 @@ class PlantShow extends Component {
   }
 
   render () {
+    const formatDate = function () {
+      return moment().format('YYYY/MM/DD')
+    }
+
+    const { plantName, plantType, lastWatered, nextWatering, lastFertilized, nextFertilizing, wateringFrequency, fertilizingFrequency } = this.state.plant
     let jsx
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
     } else {
       jsx = (
-        <div>
-          <li>{this.state.plant._id}</li>
-          <li>{this.state.plant.plantName}</li>
-          <li>{this.state.plant.plantType}</li>
+        <div className='show-container'>
+          <div className='show'>
+            <h4>{plantName}</h4>
+            <h5>{plantType}</h5>
+            <p>Last watered: {formatDate(lastWatered)}</p>
+            <p>Next watering: {formatDate(nextWatering)}</p>
+            <p>Last feeding: {formatDate(lastFertilized)}</p>
+            <p>Next Feeding: {formatDate(nextFertilizing)}</p>
+            <p>Water every {wateringFrequency} days</p>
+            <p>Feed every {fertilizingFrequency} days</p>
+          </div>
         </div>
       )
     }

@@ -7,6 +7,7 @@ import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import moment from 'moment'
 
 class CreatePlant extends Component {
   constructor (props) {
@@ -41,6 +42,31 @@ class CreatePlant extends Component {
     plantCopy[plantKey] = userInput
     // updating the state with our new copy
     this.setState({ plant: plantCopy })
+  }
+
+  handleDateFormat = () => {
+    const formatDate = new Date()
+    const date = moment(formatDate).format('YYYY/MM/DD')
+    this.setState({
+      lastWatered: date,
+      lastFertilized: date,
+      nextWaterig: date,
+      nextFertilizing: date
+    })
+  }
+
+  handleDate = () => {
+    const today = new Date()
+    const date = today.getFullYear() + '-' + (today.getFullMonth() + 1) + '-' + today.getDate()
+    if (date === this.state.nextWaterig) {
+      this.msgAlert({
+        heading: 'Time To Water',
+        message: `It's time to  water ${this.plantName} today!!`,
+        variant: 'warning'
+      }
+
+      )
+    }
   }
 
   handleCreate = event => {
