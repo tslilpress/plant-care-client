@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import messages from '../AutoDismissAlert/messages'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import moment from 'moment'
 // import Button from 'react-bootstrap/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -59,14 +59,22 @@ class PlantShow extends Component {
         variant: 'success'
       }))
       .then(() => history.push('/'))
+      .catch(error => {
+        msgAlert({
+          heading: 'Plant Delete Failure: ' + error.message,
+          message: messages.plantDeletedFailure,
+          variant: 'danger'
+        })
+      })
   }
 
   render () {
-    const formatDate = function () {
-      return moment().format('YYYY/MM/DD')
+    const { plantName, plantType, lastWatered, nextWatering, lastFertilized, nextFertilizing, wateringFrequency, fertilizingFrequency } = this.state.plant
+
+    const formatDate = function (lastWatered, lastFertilized, nextWatering, nextFertilizing) {
+      return moment(lastWatered, lastFertilized, nextWatering, nextFertilizing).format('MM/DD/YYYY')
     }
 
-    const { plantName, plantType, lastWatered, nextWatering, lastFertilized, nextFertilizing, wateringFrequency, fertilizingFrequency } = this.state.plant
     let jsx
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
@@ -86,8 +94,12 @@ class PlantShow extends Component {
             </div>
           </div>
           <div className='edit-buttons'>
-            <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
-            <FontAwesomeIcon icon={faPen} size='2x'/>
+            <Link to=''>
+              <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
+            </Link>
+            <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
+              <FontAwesomeIcon icon={faPen} size='2x'/>
+            </Link>
           </div>
         </Fragment>
       )

@@ -41,7 +41,7 @@ class PlantIndex extends Component {
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
     } else if (this.state.plants.length === 0) {
-      jsx = <p>No plants yet, please add one.</p>
+      jsx = <h1 className='no-plants'>No plants yet, please add one.</h1>
     } else {
       jsx = (
         <div className='index-container'>
