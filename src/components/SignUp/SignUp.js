@@ -10,7 +10,6 @@ import Button from 'react-bootstrap/Button'
 class SignUp extends Component {
   constructor () {
     super()
-
     this.state = {
       email: '',
       password: '',

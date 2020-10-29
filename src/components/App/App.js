@@ -60,7 +60,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/add-plant' render={() => (
             <CreatePlant msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/plants/:id' render={() => (
+          <Route user={user} path='/plants/:id' render={() => (
             <PlantShow msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/' render={() => (

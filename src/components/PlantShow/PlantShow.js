@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import { withRouter } from 'react-router-dom'
 
 class PlantShow extends Component {
   constructor (props) {
-    console.log('show', props)
     super(props)
+    console.log('show props', props)
     this.state = {
       plant: {},
       isLoaded: false
@@ -40,11 +41,11 @@ class PlantShow extends Component {
       jsx = <p>Loading...</p>
     } else {
       jsx = (
-        <ul>
+        <div>
           <li>{this.state.plant._id}</li>
           <li>{this.state.plant.plantName}</li>
           <li>{this.state.plant.plantType}</li>
-        </ul>
+        </div>
       )
     }
 
@@ -55,4 +56,4 @@ class PlantShow extends Component {
     )
   }
 }
-export default PlantShow
+export default withRouter(PlantShow)
