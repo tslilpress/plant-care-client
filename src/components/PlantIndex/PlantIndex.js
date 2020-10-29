@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { showPlant } from '../../api/plant'
-// import axios from 'axios'
-// import apiUrl from '../../apiConfig'
+// import { showPlant } from '../../api/plant'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import apiUrl from '../../apiConfig'
 
 class PlantIndex extends Component {
   constructor (props) {
     super(props)
-    console.log('props', props)
     this.state = {
       plants: [],
       isLoaded: false
@@ -14,9 +14,18 @@ class PlantIndex extends Component {
   }
 
   componentDidMount () {
+    console.log('props', this.props)
     const user = this.props.user
-    showPlant(user)
+    axios({
+      url: apiUrl + '/plants',
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      },
+      data: {}
+    })
       .then(response => {
+        console.log('response', response)
         this.setState({
           plants: response.data.plants,
           isLoaded: true
@@ -24,31 +33,33 @@ class PlantIndex extends Component {
       })
       .catch(console.error)
   }
+
   render () {
-    console.log('data', this.data)
-    console.log(this.state)
+    console.log('state', this.state.plants)
+    console.log('index props', this.props)
     let jsx
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
     } else if (this.state.plants.length === 0) {
       jsx = <p>No plants yet, please add one.</p>
     } else {
-      jsx =
-        <div>
-          {this.state.plants.map(({ _id, plantName, plantType, lastWatered, lastFertilized, nextWatering, nextFertilizing }) => (
-            <div key={_id}>
-              <p>Name: {plantName}</p>
-              <p>Type: {plantType}</p>
-            </div>
-          ))}
-        </div>
-
-      return (
-        <div>
-          {jsx}
+      jsx = (
+        <div className='index-container'>
+          <div className='index'>
+            <h1>My Plants</h1>
+            {this.state.plants.map(plant => {
+              console.log('after map', plant.plantName)
+              return <h3 key={plant._id}><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h3>
+            })}
+          </div>
         </div>
       )
     }
+    return (
+      <div>
+        {jsx}
+      </div>
+    )
   }
 }
 

@@ -14,9 +14,9 @@ import axios from 'axios'
 //   })
 // }
 
-export const showPlant = (user) => {
+export const showPlant = (user, plantId) => {
   return axios({
-    url: apiUrl + '/plants',
+    url: apiUrl + '/plants/' + `${plantId}`,
     method: 'GET',
     headers: {
       'Authorization': `Token token=${user.token}`

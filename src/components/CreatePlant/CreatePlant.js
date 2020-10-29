@@ -168,7 +168,7 @@ class CreatePlant extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button
+            <Button className='mb-5'
               variant="primary"
               type="submit"
             >

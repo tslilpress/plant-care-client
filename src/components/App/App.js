@@ -8,8 +8,9 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
-import MyPlants from '../Modals/MyPlants'
+import PlantIndex from '../PlantIndex/PlantIndex'
 import CreatePlant from '../CreatePlant/CreatePlant'
+import PlantShow from '../PlantShow/PlantShow'
 
 class App extends Component {
   constructor () {
@@ -59,13 +60,11 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/add-plant' render={() => (
             <CreatePlant msgAlert={this.msgAlert} user={user} />
           )} />
-          <Route user={user} exact path='/' render={() => (
-            <div>
-              <h2>Plant Care</h2>
-            </div>
-          )}/>
+          <AuthenticatedRoute user={user} path='/plants/:id' render={() => (
+            <PlantShow msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/' render={() => (
-            <MyPlants msgAlert={this.msgAlert} user={user} />
+            <PlantIndex user={user}/>
           )} />
         </main>
       </Fragment>
