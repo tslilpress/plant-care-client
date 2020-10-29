@@ -35,9 +35,15 @@ body {
 }
 
 .edit-buttons {
+  display: flex;
   color: rgb(56, 156, 132);
+  justify-content: flex-end;
+  max-width: 200px;
 }
 
+.delete-icon {
+  margin-right: 30px;
+}
 .no-plants {
   margin-top: 100px;
 }

@@ -91,15 +91,15 @@ class PlantShow extends Component {
               <p>Next Feeding: {formatDate(nextFertilizing)}</p>
               <p>Water every {wateringFrequency} days</p>
               <p>Feed every {fertilizingFrequency} days</p>
+              <div className='edit-buttons'>
+                <Link to='' className='delete-icon'>
+                  <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
+                </Link>
+                <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
+                  <FontAwesomeIcon icon={faPen} size='2x'/>
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className='edit-buttons'>
-            <Link to=''>
-              <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
-            </Link>
-            <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
-              <FontAwesomeIcon icon={faPen} size='2x'/>
-            </Link>
           </div>
         </Fragment>
       )
