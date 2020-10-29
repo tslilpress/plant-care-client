@@ -7,5 +7,6 @@ export default {
   changePasswordSuccess: 'Password changed successfully!',
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
   plantCreatedSuccess: 'Plant created successfully!',
-  plantCreatedFailure: 'Failed to create plant. Did you fill in all required fields?'
+  plantCreatedFailure: 'Failed to create plant. Did you fill in all required fields?',
+  plantDeletedSuccess: 'Plant deleted successfully!!'
 }
