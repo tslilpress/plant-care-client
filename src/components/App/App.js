@@ -55,7 +55,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} />
-          <AuthenticatedRoute user={user} exact path='/' render={() => (
+          <AuthenticatedRoute user={user} exact path='/my-plants' render={() => (
             <PlantIndex user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (

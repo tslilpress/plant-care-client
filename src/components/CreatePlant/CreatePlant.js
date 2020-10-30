@@ -4,10 +4,10 @@ import apiUrl from '../../apiConfig'
 import axios from 'axios'
 // import { createPlant } from '../../api/plant'
 import messages from '../AutoDismissAlert/messages'
+import moment from 'moment'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import moment from 'moment'
 
 class CreatePlant extends Component {
   constructor (props) {
@@ -44,29 +44,18 @@ class CreatePlant extends Component {
     this.setState({ plant: plantCopy })
   }
 
-  handleDateFormat = () => {
-    const formatDate = new Date()
-    const date = moment(formatDate).format('YYYY/MM/DD')
-    this.setState({
-      lastWatered: date,
-      lastFertilized: date,
-      nextWaterig: date,
-      nextFertilizing: date
-    })
-  }
-
-  handleDate = () => {
-    const today = new Date()
-    const date = today.getFullYear() + '-' + (today.getFullMonth() + 1) + '-' + today.getDate()
-    if (date === this.state.nextWaterig) {
-      this.msgAlert({
-        heading: 'Time To Water',
-        message: `It's time to  water ${this.plantName} today!!`,
-        variant: 'warning'
-      }
-
-      )
-    }
+  handleDateChange = (event) => {
+    // user input value
+    const newDate = moment.utc(event.target.value).format('MM/DD/YYYY')
+    const userInput = newDate
+    // name of input by user
+    const plantKey = event.target.name
+    // make a copy of the state
+    const plantCopy = Object.assign({}, this.state.plant)
+    // updating the key in our copy with what the user typed
+    plantCopy[plantKey] = userInput
+    // updating the state with our new copy
+    this.setState({ plant: plantCopy })
   }
 
   handleCreate = event => {
@@ -91,7 +80,7 @@ class CreatePlant extends Component {
         message: messages.plantCreatedSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/my-plants'))
       .catch(error => {
         msgAlert({
           heading: 'Plant Create Failure: ' + error.message,
@@ -102,8 +91,7 @@ class CreatePlant extends Component {
   }
 
   render () {
-    const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency,
-      nextWatering, nextFertilizing } = this.state
+    const { plantName, plantType, wateringFrequency, fertilizingFrequency } = this.state
 
     return (
       <div className="row">
@@ -159,9 +147,8 @@ class CreatePlant extends Component {
               <Form.Control
                 required
                 name="lastWatered"
-                value={lastWatered}
                 type="date"
-                onChange={this.handleChange}
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Form.Group controlId="lastFertilized">
@@ -169,9 +156,8 @@ class CreatePlant extends Component {
               <Form.Control
                 required
                 name="lastFertilized"
-                value={lastFertilized}
                 type="date"
-                onChange={this.handleChange}
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Form.Group controlId="nextWatering">
@@ -179,9 +165,9 @@ class CreatePlant extends Component {
               <Form.Control
                 required
                 name="nextWatering"
-                value={nextWatering}
                 type="date"
-                onChange={this.handleChange}
+                placeholder='mm/dd/yyyy'
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Form.Group controlId="nextFertilizing">
@@ -189,9 +175,8 @@ class CreatePlant extends Component {
               <Form.Control
                 required
                 name="nextFertilizing"
-                value={nextFertilizing}
                 type="date"
-                onChange={this.handleChange}
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Button className='mb-5'

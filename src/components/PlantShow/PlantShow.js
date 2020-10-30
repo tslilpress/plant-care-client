@@ -14,7 +14,8 @@ class PlantShow extends Component {
     console.log('show props', props)
     this.state = {
       plant: {},
-      isLoaded: false
+      isLoaded: false,
+      isDeleted: false
     }
   }
 
@@ -58,7 +59,12 @@ class PlantShow extends Component {
         message: messages.plantDeletedSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => {
+        this.setState({
+          isDeleted: true
+        })
+      })
+      .then(() => history.push('/my-plants'))
       .catch(error => {
         msgAlert({
           heading: 'Plant Delete Failure: ' + error.message,
@@ -69,42 +75,69 @@ class PlantShow extends Component {
   }
 
   render () {
+    console.log('render date', this.state.plant.lastWatered)
     const { plantName, plantType, lastWatered, nextWatering, lastFertilized, nextFertilizing, wateringFrequency, fertilizingFrequency } = this.state.plant
 
-    const formatDate = function (lastWatered, lastFertilized, nextWatering, nextFertilizing) {
-      return moment(lastWatered, lastFertilized, nextWatering, nextFertilizing).format('MM/DD/YYYY')
+    const formatDate = function (date) {
+      return moment(date).format('MM/DD/YYYY')
     }
 
+    const todaysDate = moment().format('MM/DD/YYYY')
     let jsx
-    if (this.state.isLoaded === false) {
-      jsx = <p>Loading...</p>
-    } else {
-      jsx = (
-        <Fragment>
-          <div className='show-container'>
-            <div className='show'>
-              <h4>{plantName}</h4>
-              <h5>{plantType}</h5>
-              <p>Last watered: {formatDate(lastWatered)}</p>
-              <p>Next watering: {formatDate(nextWatering)}</p>
-              <p>Last feeding: {formatDate(lastFertilized)}</p>
-              <p>Next Feeding: {formatDate(nextFertilizing)}</p>
-              <p>Water every {wateringFrequency} days</p>
-              <p>Feed every {fertilizingFrequency} days</p>
-              <div className='edit-buttons'>
-                <Link to='' className='delete-icon'>
-                  <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
-                </Link>
-                <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
-                  <FontAwesomeIcon icon={faPen} size='2x'/>
-                </Link>
-              </div>
+    if (todaysDate === formatDate(nextWatering)) {
+      console.log('today date', todaysDate)
+      console.log('next wtering', formatDate(nextWatering))
+      jsx =
+      <Fragment>
+        <div className='show-container'>
+          <div className='show'>
+            <h4>{plantName}</h4>
+            <h5>{plantType}</h5>
+            <p>Last watered: {formatDate(lastWatered)}</p>
+            <p>Next watering: {formatDate(nextWatering)}</p>
+            <p>Last feeding: {formatDate(lastFertilized)}</p>
+            <p>Next Feeding: {formatDate(nextFertilizing)}</p>
+            <p>Water every {wateringFrequency} days</p>
+            <p>Feed every {fertilizingFrequency} days</p>
+            <div className='edit-buttons'>
+              <Link to='' className='delete-icon'>
+                <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
+              </Link>
+              <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
+                <FontAwesomeIcon icon={faPen} size='2x'/>
+              </Link>
+            </div>
+            <div className='water-time'>
+              <h2>Time to water {plantName} Today!</h2>
             </div>
           </div>
-        </Fragment>
-      )
+        </div>
+      </Fragment>
+    } else {
+      jsx =
+      <Fragment>
+        <div className='show-container'>
+          <div className='show'>
+            <h4>{plantName}</h4>
+            <h5>{plantType}</h5>
+            <p>Last watered: {formatDate(lastWatered)}</p>
+            <p>Next watering: {formatDate(nextWatering)}</p>
+            <p>Last feeding: {formatDate(lastFertilized)}</p>
+            <p>Next Feeding: {formatDate(nextFertilizing)}</p>
+            <p>Water every {wateringFrequency} days</p>
+            <p>Feed every {fertilizingFrequency} days</p>
+            <div className='edit-buttons'>
+              <Link to='' className='delete-icon'>
+                <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
+              </Link>
+              <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
+                <FontAwesomeIcon icon={faPen} size='2x'/>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Fragment>
     }
-
     return (
       <div>
         {jsx}

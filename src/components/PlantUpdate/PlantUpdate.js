@@ -2,10 +2,10 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import moment from 'moment'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import messages from '../AutoDismissAlert/messages'
+import moment from 'moment'
 
 class PlantUpdate extends React.Component {
   constructor (props) {
@@ -61,6 +61,20 @@ class PlantUpdate extends React.Component {
     this.setState({ plant: plantCopy })
   }
 
+  handleDateChange = (event) => {
+    // user input value
+    const newDate = moment.utc(event.target.value).format('MM/DD/YYYY')
+    const userInput = newDate
+    // name of input by user
+    const plantKey = event.target.name
+    // make a copy of the state
+    const plantCopy = Object.assign({}, this.state.plant)
+    // updating the key in our copy with what the user typed
+    plantCopy[plantKey] = userInput
+    // updating the state with our new copy
+    this.setState({ plant: plantCopy })
+  }
+
   handleUpdate = (event) => {
     event.preventDefault()
     const { msgAlert, history } = this.props
@@ -81,7 +95,7 @@ class PlantUpdate extends React.Component {
         message: messages.plantUpdateSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/my-plants'))
       .catch(error => {
         msgAlert({
           heading: 'Plant Update Failure: ' + error.message,
@@ -96,9 +110,12 @@ class PlantUpdate extends React.Component {
     const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency,
       nextWatering, nextFertilizing } = this.state.plant
 
-    const formatDate = function (lastWatered, lastFertilized, nextWatering, nextFertilizing) {
-      return moment(lastWatered, lastFertilized, nextWatering, nextFertilizing).format('MM/DD/YYYY')
+    const formatDate = function (date) {
+      return moment(date).format('YYYY-MM-DD')
     }
+
+    // const formatLastWater = formatDate(lastWatered)
+
     return (
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
@@ -154,9 +171,8 @@ class PlantUpdate extends React.Component {
                 required
                 name="lastWatered"
                 value={formatDate(lastWatered)}
-                type="text"
-                placeholder="mm/dd/yyyy"
-                onChange={this.handleChange}
+                type="date"
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Form.Group controlId="lastFertilized">
@@ -165,9 +181,8 @@ class PlantUpdate extends React.Component {
                 required
                 name="lastFertilized"
                 value={formatDate(lastFertilized)}
-                type="text"
-                placeholder="mm/dd/yyyy"
-                onChange={this.handleChange}
+                type="date"
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Form.Group controlId="nextWatering">
@@ -176,9 +191,8 @@ class PlantUpdate extends React.Component {
                 required
                 name="nextWatering"
                 value={formatDate(nextWatering)}
-                type="text"
-                placeholder="mm/dd/yyyy"
-                onChange={this.handleChange}
+                type="date"
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Form.Group controlId="nextFertilizing">
@@ -187,9 +201,8 @@ class PlantUpdate extends React.Component {
                 required
                 name="nextFertilizing"
                 value={formatDate(nextFertilizing)}
-                type="text"
-                placeholder="mm/dd/yyyy"
-                onChange={this.handleChange}
+                type="date"
+                onChange={this.handleDateChange}
               />
             </Form.Group>
             <Button className='mb-5'
