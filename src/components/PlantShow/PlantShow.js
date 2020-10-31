@@ -91,12 +91,12 @@ class PlantShow extends Component {
       <Fragment>
         <div className='show-container'>
           <div className='show'>
-            <h4>{plantName}</h4>
-            <h5>{plantType}</h5>
-            <p>Last watered: {formatDate(lastWatered)}</p>
-            <p>Next watering: {formatDate(nextWatering)}</p>
-            <p>Last feeding: {formatDate(lastFertilized)}</p>
-            <p>Next Feeding: {formatDate(nextFertilizing)}</p>
+            <h3 className='name-type'>{plantName}</h3>
+            <h5 className='name-type'>{plantType}</h5>
+            <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
+            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
             <p>Water every {wateringFrequency} days</p>
             <p>Feed every {fertilizingFrequency} days</p>
             <div className='edit-buttons'>
@@ -108,7 +108,7 @@ class PlantShow extends Component {
               </Link>
             </div>
             <div className='water-time'>
-              <h2>Time to water {plantName} Today!</h2>
+              <h2>Water {plantName} Today!</h2>
             </div>
           </div>
         </div>
@@ -118,14 +118,14 @@ class PlantShow extends Component {
       <Fragment>
         <div className='show-container'>
           <div className='show'>
-            <h4>{plantName}</h4>
-            <h5>{plantType}</h5>
-            <p>Last watered: {formatDate(lastWatered)}</p>
-            <p>Next watering: {formatDate(nextWatering)}</p>
-            <p>Last feeding: {formatDate(lastFertilized)}</p>
-            <p>Next Feeding: {formatDate(nextFertilizing)}</p>
-            <p>Water every {wateringFrequency} days</p>
-            <p>Feed every {fertilizingFrequency} days</p>
+            <h3 className='name-type'>{plantName}</h3>
+            <h5 className='name-type'>{plantType}</h5>
+            <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
+            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
+            <p><span className='show-span'>Water every {wateringFrequency} days</span></p>
+            <p><span className='show-span'>Feed every {fertilizingFrequency} days</span></p>
             <div className='edit-buttons'>
               <Link to='' className='delete-icon'>
                 <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
