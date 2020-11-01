@@ -82,13 +82,72 @@ class PlantShow extends Component {
       return moment(date).format('MM/DD/YYYY')
     }
 
+    const nextWaterDate = function (lastWatered) {
+      return formatDate(moment(lastWatered).add(wateringFrequency, 'days').calendar())
+    }
+
     const todaysDate = moment().format('MM/DD/YYYY')
+
+    console.log('next water date', nextWaterDate(lastWatered))
+
     let jsx
-    if (todaysDate === formatDate(nextWatering)) {
-      console.log('today date', todaysDate)
-      console.log('next wtering', formatDate(nextWatering))
+    if (todaysDate === formatDate(nextWatering) && todaysDate === formatDate(nextFertilizing)) {
+      // console.log('today date', todaysDate)
+      // console.log('next wtering', formatDate(nextWatering))
       jsx =
       <Fragment>
+        <div className='show-container'>
+          <div className='show'>
+            <h3 className='name-type'>{plantName}</h3>
+            <h5 className='name-type'>{plantType}</h5>
+            <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
+            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
+            <p>Water every {wateringFrequency} days</p>
+            <p>Feed every {fertilizingFrequency} days</p>
+            <div className='edit-buttons'>
+              <Link to='' className='delete-icon'>
+                <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
+              </Link>
+              <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
+                <FontAwesomeIcon icon={faPen} size='2x'/>
+              </Link>
+            </div>
+            <div className='water-time'>
+              <h2>Water and feed {plantName} Today!</h2>
+            </div>
+          </div>
+        </div>
+      </Fragment>
+    } else if (todaysDate === formatDate(nextFertilizing)) {
+      jsx = <Fragment>
+        <div className='show-container'>
+          <div className='show'>
+            <h3 className='name-type'>{plantName}</h3>
+            <h5 className='name-type'>{plantType}</h5>
+            <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
+            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
+            <p>Water every {wateringFrequency} days</p>
+            <p>Feed every {fertilizingFrequency} days</p>
+            <div className='edit-buttons'>
+              <Link to='' className='delete-icon'>
+                <FontAwesomeIcon onClick={this.delete} icon={faTrash} size='2x'/>
+              </Link>
+              <Link to={`/plants/${this.state.plant._id}/edit-plant`}>
+                <FontAwesomeIcon icon={faPen} size='2x'/>
+              </Link>
+            </div>
+            <div className='water-time'>
+              <h2>Feed {plantName} Today!</h2>
+            </div>
+          </div>
+        </div>
+      </Fragment>
+    } else if (todaysDate === formatDate(nextWatering)) {
+      jsx = <Fragment>
         <div className='show-container'>
           <div className='show'>
             <h3 className='name-type'>{plantName}</h3>

@@ -166,7 +166,6 @@ class CreatePlant extends Component {
                 required
                 name="nextWatering"
                 type="date"
-                placeholder='mm/dd/yyyy'
                 onChange={this.handleDateChange}
               />
             </Form.Group>

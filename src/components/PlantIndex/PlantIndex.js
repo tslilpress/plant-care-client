@@ -47,21 +47,90 @@ class PlantIndex extends Component {
       if (formatDate(this.state.plants[i].nextWatering) === todaysDate) {
         plantsToWater.push(this.state.plants[i])
       }
-      console.log('index loop', formatDate(this.state.plants[i].nextWatering))
-      console.log('plants to water', plantsToWater)
     }
+    const plantsToFeed = []
+    for (let i = 0; i < this.state.plants.length; i++) {
+      if (formatDate(this.state.plants[i].nextFertilizing) === todaysDate) {
+        plantsToFeed.push(this.state.plants[i])
+      }
+      console.log('index feed loop', formatDate(this.state.plants[i].nextFertilizing))
+      console.log('plants to Feed', plantsToFeed)
+    }
+
     let jsx
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
     } else if (this.state.plants.length === 0) {
       jsx = <h1 className='no-plants'>No plants yet, please add one.</h1>
-    } else if (plantsToWater.length > 0) {
+    } else if (plantsToWater.length > 0 && plantsToFeed.length > 0) {
       jsx = (
         <Fragment>
-          <div id='to-water-container'>
+          <div id='to-water-feed-container'>
             <div className='to-water'>
               <h5>PLANTS TO WATER TODAY:</h5>
               {plantsToWater.map(plant => {
+                return <div key={plant._id}>
+                  <h5 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h5>
+                </div>
+              })}
+            </div>
+            <div className='to-feed'>
+              <h5>PLANTS TO FEED TODAY:</h5>
+              {plantsToFeed.map(plant => {
+                return <div key={plant._id}>
+                  <h5 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h5>
+                </div>
+              })}
+            </div>
+          </div>
+          <div className='index-container'>
+            <div className='index'>
+              <h1>My Plants</h1>
+              {this.state.plants.map(plant => {
+                console.log('after map', plant.plantName)
+                return <div key={plant._id}>
+                  <h4 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h4>
+                  <p>{plant.plantType}</p>
+                </div>
+              })}
+            </div>
+          </div>
+        </Fragment>
+      )
+    } else if (plantsToWater.length > 0) {
+      jsx = (
+        <Fragment>
+          <div id='to-water-feed-container'>
+            <div className='to-water'>
+              <h5>PLANTS TO WATER TODAY:</h5>
+              {plantsToWater.map(plant => {
+                return <div key={plant._id}>
+                  <h5 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h5>
+                </div>
+              })}
+            </div>
+          </div>
+          <div className='index-container'>
+            <div className='index'>
+              <h1>My Plants</h1>
+              {this.state.plants.map(plant => {
+                console.log('after map', plant.plantName)
+                return <div key={plant._id}>
+                  <h4 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h4>
+                  <p>{plant.plantType}</p>
+                </div>
+              })}
+            </div>
+          </div>
+        </Fragment>
+      )
+    } else if (plantsToFeed.length > 0) {
+      jsx = (
+        <Fragment>
+          <div id='to-water-feed-container'>
+            <div className='to-feed'>
+              <h5>PLANTS TO FEED TODAY:</h5>
+              {plantsToFeed.map(plant => {
                 return <div key={plant._id}>
                   <h5 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h5>
                 </div>
