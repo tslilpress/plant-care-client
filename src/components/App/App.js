@@ -33,7 +33,6 @@ class App extends Component {
 
   render () {
     const { msgAlerts, user } = this.state
-
     return (
       <Fragment>
         <Header user={user} />

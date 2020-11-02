@@ -18,8 +18,6 @@ class PlantUpdate extends React.Component {
         lastFertilized: '',
         wateringFrequency: '',
         fertilizingFrequency: '',
-        nextWatering: '',
-        nextFertilizing: '',
         note: ''
       },
       createdPlantId: '',
@@ -107,8 +105,7 @@ class PlantUpdate extends React.Component {
 
   render () {
     console.log('update state', this.state)
-    const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency,
-      nextWatering, nextFertilizing } = this.state.plant
+    const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency } = this.state.plant
 
     const formatDate = function (date) {
       return moment(date).format('YYYY-MM-DD')
@@ -181,26 +178,6 @@ class PlantUpdate extends React.Component {
                 required
                 name="lastFertilized"
                 value={formatDate(lastFertilized)}
-                type="date"
-                onChange={this.handleDateChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="nextWatering">
-              <Form.Label>Next Watering</Form.Label>
-              <Form.Control
-                required
-                name="nextWatering"
-                value={formatDate(nextWatering)}
-                type="date"
-                onChange={this.handleDateChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="nextFertilizing">
-              <Form.Label>Next Feeding</Form.Label>
-              <Form.Control
-                required
-                name="nextFertilizing"
-                value={formatDate(nextFertilizing)}
                 type="date"
                 onChange={this.handleDateChange}
               />

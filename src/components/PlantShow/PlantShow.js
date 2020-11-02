@@ -75,23 +75,23 @@ class PlantShow extends Component {
   }
 
   render () {
-    console.log('render date', this.state.plant.lastWatered)
-    const { plantName, plantType, lastWatered, nextWatering, lastFertilized, nextFertilizing, wateringFrequency, fertilizingFrequency } = this.state.plant
+    console.log('render date', this.state.plant.nextWatering)
+    const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency } = this.state.plant
 
     const formatDate = function (date) {
       return moment(date).format('MM/DD/YYYY')
     }
 
-    const nextWaterDate = function (lastWatered) {
-      return formatDate(moment(lastWatered).add(wateringFrequency, 'days').calendar())
-    }
+    const nextWaterDate = moment(lastWatered).add(wateringFrequency, 'days').calendar(lastWatered)
+    console.log('show next water', nextWaterDate)
+
+    const nextFeedDate = moment(lastFertilized).add(fertilizingFrequency, 'days').calendar(lastFertilized)
+    console.log('show next water', nextFeedDate)
 
     const todaysDate = moment().format('MM/DD/YYYY')
 
-    console.log('next water date', nextWaterDate(lastWatered))
-
     let jsx
-    if (todaysDate === formatDate(nextWatering) && todaysDate === formatDate(nextFertilizing)) {
+    if (todaysDate === nextWaterDate && todaysDate === nextFeedDate) {
       // console.log('today date', todaysDate)
       // console.log('next wtering', formatDate(nextWatering))
       jsx =
@@ -101,9 +101,9 @@ class PlantShow extends Component {
             <h3 className='name-type'>{plantName}</h3>
             <h5 className='name-type'>{plantType}</h5>
             <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
-            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Next watering:</span> {nextWaterDate}</p>
             <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
-            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {nextFeedDate}</p>
             <p>Water every {wateringFrequency} days</p>
             <p>Feed every {fertilizingFrequency} days</p>
             <div className='edit-buttons'>
@@ -120,16 +120,16 @@ class PlantShow extends Component {
           </div>
         </div>
       </Fragment>
-    } else if (todaysDate === formatDate(nextFertilizing)) {
+    } else if (todaysDate === nextFeedDate) {
       jsx = <Fragment>
         <div className='show-container'>
           <div className='show'>
             <h3 className='name-type'>{plantName}</h3>
             <h5 className='name-type'>{plantType}</h5>
             <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
-            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Next watering:</span> {nextWaterDate}</p>
             <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
-            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {nextFeedDate}</p>
             <p>Water every {wateringFrequency} days</p>
             <p>Feed every {fertilizingFrequency} days</p>
             <div className='edit-buttons'>
@@ -146,16 +146,16 @@ class PlantShow extends Component {
           </div>
         </div>
       </Fragment>
-    } else if (todaysDate === formatDate(nextWatering)) {
+    } else if (todaysDate === nextWaterDate) {
       jsx = <Fragment>
         <div className='show-container'>
           <div className='show'>
             <h3 className='name-type'>{plantName}</h3>
             <h5 className='name-type'>{plantType}</h5>
             <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
-            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Next watering:</span> {nextWaterDate}</p>
             <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
-            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {nextFeedDate}</p>
             <p>Water every {wateringFrequency} days</p>
             <p>Feed every {fertilizingFrequency} days</p>
             <div className='edit-buttons'>
@@ -180,9 +180,9 @@ class PlantShow extends Component {
             <h3 className='name-type'>{plantName}</h3>
             <h5 className='name-type'>{plantType}</h5>
             <p><span className='show-span'>Last watered:</span> {formatDate(lastWatered)}</p>
-            <p><span className='show-span'>Next watering:</span> {formatDate(nextWatering)}</p>
+            <p><span className='show-span'>Next watering:</span> {nextWaterDate}</p>
             <p><span className='show-span'>Last feeding:</span> {formatDate(lastFertilized)}</p>
-            <p><span className='show-span'>Next Feeding:</span> {formatDate(nextFertilizing)}</p>
+            <p><span className='show-span'>Next Feeding:</span> {nextFeedDate}</p>
             <p><span className='show-span'>Water every {wateringFrequency} days</span></p>
             <p><span className='show-span'>Feed every {fertilizingFrequency} days</span></p>
             <div className='edit-buttons'>

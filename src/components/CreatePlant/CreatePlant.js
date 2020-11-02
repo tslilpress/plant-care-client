@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button'
 class CreatePlant extends Component {
   constructor (props) {
     super(props)
+    console.log('create props', this.props)
 
     this.state = {
       plant: {
@@ -21,13 +22,9 @@ class CreatePlant extends Component {
         lastFertilized: '',
         wateringFrequency: '',
         fertilizingFrequency: '',
-        nextWatering: '',
-        nextFertilizing: '',
         note: ''
       },
-      createdPlantId: '',
-      timeToWater: false,
-      timeTofertilize: false
+      createdPlantId: ''
     }
   }
 
@@ -60,6 +57,13 @@ class CreatePlant extends Component {
 
   handleCreate = event => {
     event.preventDefault()
+    // const { wateringFrequency, lastWatered } = this.state
+    // const formatDate = function (date) {
+    //   return moment(date).format('MM/DD/YYYY')
+    // }
+    // const nextWaterDate = function (date) {
+    //   return formatDate(moment(date).add(wateringFrequency, 'days').calendar(lastWatered))
+    // }
     const { msgAlert, history } = this.props
     const plant = this.state.plant
     console.log('before create', plant)
@@ -74,7 +78,9 @@ class CreatePlant extends Component {
       }
     })
     // console.log('data', this.data)
-      .then((response) => this.setState({ createdPlantId: response.data.plant._id }))
+      .then((response) => this.setState({
+        createdPlantId: response.data.plant._id
+      }))
       .then(() => msgAlert({
         heading: 'Plant Added',
         message: messages.plantCreatedSuccess,
@@ -92,6 +98,7 @@ class CreatePlant extends Component {
 
   render () {
     const { plantName, plantType, wateringFrequency, fertilizingFrequency } = this.state
+    console.log('nextWatering state', this.state.nextWatering)
 
     return (
       <div className="row">
@@ -143,7 +150,7 @@ class CreatePlant extends Component {
               />
             </Form.Group>
             <Form.Group controlId="lastWatered">
-              <Form.Label>Last Watering</Form.Label>
+              <Form.Label>Last Watered</Form.Label>
               <Form.Control
                 required
                 name="lastWatered"
@@ -152,28 +159,10 @@ class CreatePlant extends Component {
               />
             </Form.Group>
             <Form.Group controlId="lastFertilized">
-              <Form.Label>Last Feeding</Form.Label>
+              <Form.Label>Last Fertilized</Form.Label>
               <Form.Control
                 required
                 name="lastFertilized"
-                type="date"
-                onChange={this.handleDateChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="nextWatering">
-              <Form.Label>Next Watering</Form.Label>
-              <Form.Control
-                required
-                name="nextWatering"
-                type="date"
-                onChange={this.handleDateChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="nextFertilizing">
-              <Form.Label>Next Feeding</Form.Label>
-              <Form.Control
-                required
-                name="nextFertilizing"
                 type="date"
                 onChange={this.handleDateChange}
               />

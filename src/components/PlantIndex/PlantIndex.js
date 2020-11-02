@@ -42,19 +42,22 @@ class PlantIndex extends Component {
     const formatDate = function (date) {
       return moment(date).format('MM/DD/YYYY')
     }
+
     const plantsToWater = []
     for (let i = 0; i < this.state.plants.length; i++) {
-      if (formatDate(this.state.plants[i].nextWatering) === todaysDate) {
+      const nextWaterDate = moment(this.state.plants[i].lastWatered).add(this.state.plants[i].wateringFrequency, 'days').calendar(this.state.plants[i].lastWatered)
+      if (nextWaterDate === todaysDate) {
         plantsToWater.push(this.state.plants[i])
       }
+      console.log('next water date', formatDate(nextWaterDate))
     }
     const plantsToFeed = []
     for (let i = 0; i < this.state.plants.length; i++) {
-      if (formatDate(this.state.plants[i].nextFertilizing) === todaysDate) {
+      const nextFeedDate = formatDate(moment(this.state.plants[i].lastFertilized).add(this.state.plants[i].fertilizingFrequency, 'days').calendar(this.state.plants[i].lastFertilized))
+      if (nextFeedDate === todaysDate) {
         plantsToFeed.push(this.state.plants[i])
       }
-      console.log('index feed loop', formatDate(this.state.plants[i].nextFertilizing))
-      console.log('plants to Feed', plantsToFeed)
+      console.log('nextFeedDate', nextFeedDate)
     }
 
     let jsx
