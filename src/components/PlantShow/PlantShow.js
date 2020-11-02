@@ -11,7 +11,7 @@ import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 class PlantShow extends Component {
   constructor (props) {
     super(props)
-    console.log('show props', props)
+    // console.log('show props', props)
     this.state = {
       plant: {},
       isLoaded: false,
@@ -20,8 +20,8 @@ class PlantShow extends Component {
   }
 
   componentDidMount () {
-    console.log('show state in CDM', this.state)
-    console.log('show data in CDM', this.data)
+    // console.log('show state in CDM', this.state)
+    // console.log('show data in CDM', this.data)
     const user = this.props.user
     axios({
       url: apiUrl + '/plants/' + this.props.match.params.id,
@@ -32,7 +32,7 @@ class PlantShow extends Component {
       data: {}
     })
       .then(response => {
-        console.log('show', response)
+        // console.log('show', response)
         this.setState({
           isLoaded: true,
           plant: response.data.plant
@@ -43,7 +43,7 @@ class PlantShow extends Component {
 
   delete = () => {
     const { msgAlert, history } = this.props
-    console.log('delete state', this.state)
+    // console.log('delete state', this.state)
     const plantId = this.state.plant._id
     const user = this.props.user
     axios({
@@ -75,7 +75,7 @@ class PlantShow extends Component {
   }
 
   render () {
-    console.log('render date', this.state.plant.nextWatering)
+    // console.log('render date', this.state.plant.nextWatering)
     const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency } = this.state.plant
 
     const formatDate = function (date) {
@@ -83,10 +83,10 @@ class PlantShow extends Component {
     }
 
     const nextWaterDate = moment(lastWatered).add(wateringFrequency, 'days').calendar(lastWatered)
-    console.log('show next water', nextWaterDate)
+    // console.log('show next water', nextWaterDate)
 
     const nextFeedDate = moment(lastFertilized).add(fertilizingFrequency, 'days').calendar(lastFertilized)
-    console.log('show next water', nextFeedDate)
+    // console.log('show next water', nextFeedDate)
 
     const todaysDate = moment().format('MM/DD/YYYY')
 

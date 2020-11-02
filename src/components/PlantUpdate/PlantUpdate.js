@@ -38,7 +38,7 @@ class PlantUpdate extends React.Component {
       data: {}
     })
       .then(response => {
-        console.log('updadte response', response)
+        // console.log('updadte response', response)
         this.setState({
           plant: response.data.plant
         })
@@ -104,7 +104,7 @@ class PlantUpdate extends React.Component {
   }
 
   render () {
-    console.log('update state', this.state)
+    // console.log('update state', this.state)
     const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency } = this.state.plant
 
     const formatDate = function (date) {

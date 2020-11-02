@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button'
 class CreatePlant extends Component {
   constructor (props) {
     super(props)
-    console.log('create props', this.props)
+    // console.log('create props', this.props)
 
     this.state = {
       plant: {
@@ -57,16 +57,9 @@ class CreatePlant extends Component {
 
   handleCreate = event => {
     event.preventDefault()
-    // const { wateringFrequency, lastWatered } = this.state
-    // const formatDate = function (date) {
-    //   return moment(date).format('MM/DD/YYYY')
-    // }
-    // const nextWaterDate = function (date) {
-    //   return formatDate(moment(date).add(wateringFrequency, 'days').calendar(lastWatered))
-    // }
     const { msgAlert, history } = this.props
     const plant = this.state.plant
-    console.log('before create', plant)
+    // console.log('before create', plant)
     axios({
       url: apiUrl + '/plants',
       method: 'POST',
@@ -98,7 +91,7 @@ class CreatePlant extends Component {
 
   render () {
     const { plantName, plantType, wateringFrequency, fertilizingFrequency } = this.state
-    console.log('nextWatering state', this.state.nextWatering)
+    // console.log('nextWatering state', this.state.nextWatering)
 
     return (
       <div className="row">

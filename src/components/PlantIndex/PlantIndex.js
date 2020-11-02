@@ -15,7 +15,7 @@ class PlantIndex extends Component {
   }
 
   componentDidMount () {
-    console.log('props', this.props)
+    // console.log('props', this.props)
     const user = this.props.user
     axios({
       url: apiUrl + '/plants',
@@ -26,7 +26,7 @@ class PlantIndex extends Component {
       data: {}
     })
       .then(response => {
-        console.log('response', response)
+        // console.log('response', response)
         this.setState({
           plants: response.data.plants,
           isLoaded: true
@@ -36,8 +36,8 @@ class PlantIndex extends Component {
   }
 
   render () {
-    console.log('index state', this.state.plants)
-    console.log('index props', this.props)
+    // console.log('index state', this.state.plants)
+    // console.log('index props', this.props)
     const todaysDate = moment().format('MM/DD/YYYY')
     const formatDate = function (date) {
       return moment(date).format('MM/DD/YYYY')
@@ -49,7 +49,7 @@ class PlantIndex extends Component {
       if (nextWaterDate === todaysDate) {
         plantsToWater.push(this.state.plants[i])
       }
-      console.log('next water date', formatDate(nextWaterDate))
+      // console.log('next water date', formatDate(nextWaterDate))
     }
     const plantsToFeed = []
     for (let i = 0; i < this.state.plants.length; i++) {
@@ -57,7 +57,7 @@ class PlantIndex extends Component {
       if (nextFeedDate === todaysDate) {
         plantsToFeed.push(this.state.plants[i])
       }
-      console.log('nextFeedDate', nextFeedDate)
+      // console.log('nextFeedDate', nextFeedDate)
     }
 
     let jsx
@@ -90,7 +90,6 @@ class PlantIndex extends Component {
             <div className='index'>
               <h1>My Plants</h1>
               {this.state.plants.map(plant => {
-                console.log('after map', plant.plantName)
                 return <div key={plant._id}>
                   <h4 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h4>
                   <p>{plant.plantType}</p>
@@ -117,7 +116,6 @@ class PlantIndex extends Component {
             <div className='index'>
               <h1>My Plants</h1>
               {this.state.plants.map(plant => {
-                console.log('after map', plant.plantName)
                 return <div key={plant._id}>
                   <h4 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h4>
                   <p>{plant.plantType}</p>
@@ -144,7 +142,7 @@ class PlantIndex extends Component {
             <div className='index'>
               <h1>My Plants</h1>
               {this.state.plants.map(plant => {
-                console.log('after map', plant.plantName)
+                // console.log('after map', plant.plantName)
                 return <div key={plant._id}>
                   <h4 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h4>
                   <p>{plant.plantType}</p>
@@ -160,7 +158,7 @@ class PlantIndex extends Component {
           <div className='index'>
             <h1>My Plants</h1>
             {this.state.plants.map(plant => {
-              console.log('after map', plant.plantName)
+              // console.log('after map', plant.plantName)
               return <div key={plant._id}>
                 <h4 ><Link to={`/plants/${plant._id}`}>{plant.plantName}</Link></h4>
                 <p>{plant.plantType}</p>
