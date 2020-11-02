@@ -43,7 +43,7 @@ class CreatePlant extends Component {
 
   handleDateChange = (event) => {
     // user input value
-    const newDate = moment.utc(event.target.value).format('MM/DD/YYYY')
+    const newDate = moment(event.target.value).format('l')
     const userInput = newDate
     // name of input by user
     const plantKey = event.target.name
@@ -59,7 +59,7 @@ class CreatePlant extends Component {
     event.preventDefault()
     const { msgAlert, history } = this.props
     const plant = this.state.plant
-    // console.log('before create', plant)
+    console.log('before create', plant)
     axios({
       url: apiUrl + '/plants',
       method: 'POST',
@@ -91,7 +91,6 @@ class CreatePlant extends Component {
 
   render () {
     const { plantName, plantType, wateringFrequency, fertilizingFrequency } = this.state
-    // console.log('nextWatering state', this.state.nextWatering)
 
     return (
       <div className="row">
