@@ -104,7 +104,7 @@ class PlantUpdate extends React.Component {
   }
 
   render () {
-    // console.log('update state', this.state)
+    console.log('update render', this.state.plant)
     const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency } = this.state.plant
 
     const formatDate = function (date) {

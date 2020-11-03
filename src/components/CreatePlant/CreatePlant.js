@@ -43,7 +43,7 @@ class CreatePlant extends Component {
 
   handleDateChange = (event) => {
     // user input value
-    const newDate = moment.utc(event.target.value).format('l')
+    const newDate = moment.utc(event.target.value).format('MM/DD/YYYY')
     const userInput = newDate
     // name of input by user
     const plantKey = event.target.name
@@ -91,7 +91,7 @@ class CreatePlant extends Component {
 
   render () {
     const { plantName, plantType, wateringFrequency, fertilizingFrequency } = this.state
-    console.log('at render')
+    console.log('at render', this.state.plant)
 
     return (
       <div className="row">

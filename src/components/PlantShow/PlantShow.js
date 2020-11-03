@@ -75,7 +75,7 @@ class PlantShow extends Component {
   }
 
   render () {
-    // console.log('render date', this.state.plant.nextWatering)
+    console.log('show render', this.state.plant)
     const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency } = this.state.plant
 
     const formatDate = function (date) {
