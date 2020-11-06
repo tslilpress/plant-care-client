@@ -2,7 +2,7 @@
 
 A single page application that allows users to keep track of their houseplants watering and fertilizing schedule and reminds them when it's time to water or fertilize their plants.
 
-## important Links
+## Important Links
 [Server side app repo on github](https://github.com/tslilpress/plant-care-server) ----
 [Server side app site on Heroku](https://sheltered-badlands-12317.herokuapp.com)
 
