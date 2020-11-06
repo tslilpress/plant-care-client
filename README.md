@@ -12,20 +12,28 @@ I started by creating components for the basic CRUD action, first I the create c
 The last thing I worked on was the logic to calculate and display a message for when it's time to water or fertilize the plant. I used moment.js to help manage dates.
 
 ### User Stories
--As a user I would like to sign up/in.
--As a user I would like to sign out.
--As a user I would like to change my password.
--As a user I would like to add a plant and its details.
--As a user I would like see all my plants.
--As a user I would like search for a single plant.
--As a user I would like to update a plant.
--As a user I would like to delete a plant.
--As a user I would like to be see when the next watering and fertilizing is.
--As a user I would like to be able to set my watering and fertilizing schedule for each plant.
--As a user I  would to have a reminder to water or fertilize a plant on the scheduled day.
+
+- As a user I would like to sign up/in
+- As a user I would like to sign out
+- As a user I would like to change my password
+- As a user I would like to add a plant and its details
+- As a user I would like see all my plants
+- As a user I would like search for a single plant
+- As a user I would like to update a plant
+- As a user I would like to delete a plant
+- As a user I would like to be see when the next watering and fertilizing is
+- As a user I would like to be able to set my watering and fertilizing schedule for each plant
+- As a user I  would to have a reminder to water or fertilize a plant on the scheduled day
 
 ### Technologies used
--HTML/CSS
--JavaScript
--React
--
+- HTML/CSS
+- JavaScript
+- React
+- Bootstrap
+- Moment.js
+
+### Unsolved Problems
+I would like to eventually split up the locations of the plants by rooms. Also, have more information about each plant and their needs.
+
+### Wireframes
+![Plant Care App Wireframe](https://user-images.githubusercontent.com/68870466/98407284-65538b80-203d-11eb-8851-b1b2df0a45cd.jpg)
