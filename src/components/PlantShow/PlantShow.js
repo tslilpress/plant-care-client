@@ -79,7 +79,7 @@ class PlantShow extends Component {
     const { plantName, plantType, lastWatered, lastFertilized, wateringFrequency, fertilizingFrequency } = this.state.plant
 
     const formatDate = function (date) {
-      return moment(date).format('MM/DD/YYYY')
+      return moment.utc(date).format('MM/DD/YYYY')
     }
 
     const nextWaterDate = moment(lastWatered).add(wateringFrequency, 'days').calendar(lastWatered)
